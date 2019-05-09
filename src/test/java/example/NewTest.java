@@ -29,17 +29,15 @@ public class NewTest {
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
- @Test
-  public void testPaypalweb() throws Exception {
+@Test
+  public void test0509() throws Exception {
     driver.get(baseUrl + "/wtlab108/index.html");
     driver.findElement(By.id("account")).clear();
     driver.findElement(By.id("account")).sendKeys("108");
     driver.findElement(By.id("password")).clear();
     driver.findElement(By.id("password")).sendKeys("108");
     driver.findElement(By.xpath("//input[@value='Log in']")).click();
-    Thread.currentThread().sleep(1000);
     driver.findElement(By.cssSelector("a > h2")).click();
-    Thread.currentThread().sleep(1000);
     driver.findElement(By.cssSelector("#block2 > a > div.abgne_tip_gallery_block > a > img.img-responsive")).click();
     driver.findElement(By.id("cartSub")).click();
     driver.findElement(By.id("paypal")).click();
@@ -56,7 +54,7 @@ public class NewTest {
     driver.findElement(By.id("confirmButtonTop")).click();
   }
 
-  @After
+  @AfterClass(alwaysRun = true)
   public void tearDown() throws Exception {
     driver.quit();
     String verificationErrorString = verificationErrors.toString();
@@ -98,3 +96,4 @@ public class NewTest {
     }
   }
 }
+
