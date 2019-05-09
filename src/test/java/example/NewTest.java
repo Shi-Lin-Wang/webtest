@@ -21,7 +21,7 @@ public class NewTest {
 	  private boolean acceptNextAlert = true;
 	  private StringBuffer verificationErrors = new StringBuffer();
 
-	  @BeforeClass(alwaysRun = true)
+ @BeforeClass(alwaysRun = true)
   public void setUp() throws Exception {
     System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
       driver = new ChromeDriver();
@@ -29,11 +29,9 @@ public class NewTest {
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
-  @Test
-  public void testWeb() throws Exception {
-    driver.get(baseUrl + "//wtlab108/index.html");
-    driver.findElement(By.id("password")).clear();
-    driver.findElement(By.id("password")).sendKeys("1");
+ @Test
+  public void testPaypalweb() throws Exception {
+    driver.get(baseUrl + "/wtlab108/index.html");
     driver.findElement(By.id("account")).clear();
     driver.findElement(By.id("account")).sendKeys("108");
     driver.findElement(By.id("password")).clear();
@@ -44,12 +42,21 @@ public class NewTest {
     Thread.currentThread().sleep(1000);
     driver.findElement(By.cssSelector("#block2 > a > div.abgne_tip_gallery_block > a > img.img-responsive")).click();
     driver.findElement(By.id("cartSub")).click();
-    driver.findElement(By.id("cash")).click();
-    driver.findElement(By.cssSelector("div.inputGroup.B > label")).click();
+    driver.findElement(By.id("paypal")).click();
+    driver.findElement(By.cssSelector("div.inputGroup.A > label")).click();
     driver.findElement(By.id("checkOut")).click();
+    // ERROR: Caught exception [ERROR: Unsupported command [selectFrame | injectedUl | ]]
+    driver.findElement(By.id("email")).clear();
+    driver.findElement(By.id("email")).sendKeys("asd53172-buyer@gmail.com");
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("a7227092");
+    driver.findElement(By.id("btnLogin")).click();
+    // ERROR: Caught exception [ERROR: Unsupported command [selectWindow | null | ]]
+    // ERROR: Caught exception [ERROR: Unsupported command [waitForPopUp | popup | 1000]]
+    driver.findElement(By.id("confirmButtonTop")).click();
   }
 
-  @AfterClass(alwaysRun = true)
+  @After
   public void tearDown() throws Exception {
     driver.quit();
     String verificationErrorString = verificationErrors.toString();
