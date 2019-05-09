@@ -22,67 +22,72 @@ public class NewTest {
 	  private StringBuffer verificationErrors = new StringBuffer();
 
 	  @BeforeClass(alwaysRun = true)
-	  public void setUp() throws Exception 
-	  {
-		  System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
-	    driver = new ChromeDriver();
-	    baseUrl = "http://140.127.74.191/";
-	    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-	  }
+  public void setUp() throws Exception {
+    System.setProperty("webdriver.chrome.driver", "C:/chromedriver.exe");
+      driver = new ChromeDriver();
+    baseUrl = "http://127.0.0.1/";
+    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+  }
 
-	  @Test
-	  public void testNg() throws Exception {
-		  
-	    driver.get(baseUrl + "/bootstrap-WSSE/login.html");
-	    driver.findElement(By.id("Account")).clear();
-	    driver.findElement(By.id("Account")).sendKeys("1");
-	    driver.findElement(By.id("Password")).clear();
-	    driver.findElement(By.id("Password")).sendKeys("1");
-	    driver.findElement(By.id("submit")).click();
-	    driver.findElement(By.cssSelector("button.navbar-toggler")).click();
-	    driver.findElement(By.linkText("作業一")).click();
-	    driver.findElement(By.linkText("作業1-1")).click();
-	  }
+  @Test
+  public void testWeb() throws Exception {
+    driver.get(baseUrl + "//wtlab108/index.html");
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("1");
+    driver.findElement(By.id("account")).clear();
+    driver.findElement(By.id("account")).sendKeys("108");
+    driver.findElement(By.id("password")).clear();
+    driver.findElement(By.id("password")).sendKeys("108");
+    driver.findElement(By.xpath("//input[@value='Log in']")).click();
+    Thread.currentThread().sleep(1000);
+    driver.findElement(By.cssSelector("a > h2")).click();
+    Thread.currentThread().sleep(1000);
+    driver.findElement(By.cssSelector("#block2 > a > div.abgne_tip_gallery_block > a > img.img-responsive")).click();
+    driver.findElement(By.id("cartSub")).click();
+    driver.findElement(By.id("cash")).click();
+    driver.findElement(By.cssSelector("div.inputGroup.B > label")).click();
+    driver.findElement(By.id("checkOut")).click();
+  }
 
-	  @AfterClass(alwaysRun = true)
-	  public void tearDown() throws Exception {
-	    driver.quit();
-	    String verificationErrorString = verificationErrors.toString();
-	    if (!"".equals(verificationErrorString)) {
-	      fail(verificationErrorString);
-	    }
-	  }
+  @AfterClass(alwaysRun = true)
+  public void tearDown() throws Exception {
+    driver.quit();
+    String verificationErrorString = verificationErrors.toString();
+    if (!"".equals(verificationErrorString)) {
+      fail(verificationErrorString);
+    }
+  }
 
-	  private boolean isElementPresent(By by) {
-	    try {
-	      driver.findElement(by);
-	      return true;
-	    } catch (NoSuchElementException e) {
-	      return false;
-	    }
-	  }
+  private boolean isElementPresent(By by) {
+    try {
+      driver.findElement(by);
+      return true;
+    } catch (NoSuchElementException e) {
+      return false;
+    }
+  }
 
-	  private boolean isAlertPresent() {
-	    try {
-	      driver.switchTo().alert();
-	      return true;
-	    } catch (NoAlertPresentException e) {
-	      return false;
-	    }
-	  }
+  private boolean isAlertPresent() {
+    try {
+      driver.switchTo().alert();
+      return true;
+    } catch (NoAlertPresentException e) {
+      return false;
+    }
+  }
 
-	  private String closeAlertAndGetItsText() {
-	    try {
-	      Alert alert = driver.switchTo().alert();
-	      String alertText = alert.getText();
-	      if (acceptNextAlert) {
-	        alert.accept();
-	      } else {
-	        alert.dismiss();
-	      }
-	      return alertText;
-	    } finally {
-	      acceptNextAlert = true;
-	    }
-	  }
+  private String closeAlertAndGetItsText() {
+    try {
+      Alert alert = driver.switchTo().alert();
+      String alertText = alert.getText();
+      if (acceptNextAlert) {
+        alert.accept();
+      } else {
+        alert.dismiss();
+      }
+      return alertText;
+    } finally {
+      acceptNextAlert = true;
+    }
+  }
 }
